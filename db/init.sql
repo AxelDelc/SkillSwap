@@ -1,0 +1,44 @@
+-- USERS
+CREATE TABLE users (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT NOT NULL UNIQUE,
+  email TEXT NOT NULL UNIQUE,
+  password_hash TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- SKILLS
+CREATE TABLE skills (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT NOT NULL UNIQUE
+);
+
+-- USER_SKILLS (offres / demandes)
+CREATE TABLE user_skills (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  user_id INTEGER NOT NULL,
+  skill_id INTEGER NOT NULL,
+  type TEXT CHECK(type IN ('offer', 'request')) NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (skill_id) REFERENCES skills(id)
+);
+
+-- CREDITS
+CREATE TABLE credits (
+  user_id INTEGER PRIMARY KEY,
+  balance INTEGER DEFAULT 0,
+  FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- EXCHANGES
+CREATE TABLE exchanges (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  giver_id INTEGER NOT NULL,
+  receiver_id INTEGER NOT NULL,
+  skill_id INTEGER NOT NULL,
+  credits INTEGER NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (giver_id) REFERENCES users(id),
+  FOREIGN KEY (receiver_id) REFERENCES users(id),
+  FOREIGN KEY (skill_id) REFERENCES skills(id)
+);
