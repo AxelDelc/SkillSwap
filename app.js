@@ -2,6 +2,8 @@ const express = require('express');
 const session = require('express-session');
 const path = require('path');
 const db = require('./db/database');
+const authRoutes = require('./routes/auth');
+const authMiddleware = require('./middleware/auth');
 
 const app = express();
 
@@ -26,12 +28,6 @@ app.get('/', (req, res) => {
     res.send('Réussite de la connexion à la base de données SQLite !');
 });
 
-// Lancement du serveur
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Serveur lancé sur http://localhost:${PORT}`);
-});
-
 // Test de la BDD
 app.get('/test-db', (req, res) => {
     db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
@@ -43,11 +39,15 @@ app.get('/test-db', (req, res) => {
 });
 
 // Routes Auth
-const authRoutes = require('./routes/auth');
-app.use('/', authRoutes);
-
-const authMiddleware = require('./middleware/auth');
+app.use(authRoutes);
 
 app.get('/profile', authMiddleware, (req, res) => {
     res.send(`Bienvenue sur votre profil, utilisateur #${req.session.userId}`);
+});
+
+
+// Lancement du serveur
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });
