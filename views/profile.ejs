@@ -1,0 +1,37 @@
+<h2>Profil de <%= user.username %>
+</h2>
+<p>Email : <%= user.email %>
+</p>
+<p>Crédits : <%= credit %>
+</p>
+
+<h3>Compétences proposées</h3>
+<ul>
+    <% offers.forEach(o=> { %>
+        <li>
+            <%= o.name %>
+        </li>
+        <% }) %>
+</ul>
+
+<h3>Compétences recherchées</h3>
+<ul>
+    <% requests.forEach(r=> { %>
+        <li>
+            <%= r.name %>
+        </li>
+        <% }) %>
+</ul>
+
+<h3>Ajouter une compétence</h3>
+<form method="POST" action="/add-skill">
+    <input name="skillName" placeholder="Nom compétence" required>
+    <select name="type">
+        <option value="offer">Proposée</option>
+        <option value="request">Recherchée</option>
+    </select>
+    <button>Ajouter</button>
+</form>
+
+<a href="/users">Voir autres utilisateurs</a>
+<a href="/logout">Déconnexion</a>

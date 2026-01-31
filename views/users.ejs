@@ -1,0 +1,32 @@
+<h2>Autres utilisateurs</h2>
+<ul>
+    <% users.forEach(u=> { %>
+        <li>
+            <%= u.username %>
+        </li>
+        <% }) %>
+</ul>
+
+<a href="/profile">Retour profil</a>
+
+
+<h2>Compétences proposées</h2>
+
+<ul>
+    <% rows.forEach(r=> { %>
+        <li>
+            <strong>
+                <%= r.skill_name %>
+            </strong>
+            proposé par <%= r.username %>
+
+                <form method="POST" action="/exchange" style="display:inline">
+                    <input type="hidden" name="receiverId" value="<%= r.user_id %>">
+                    <input type="hidden" name="skillId" value="<%= r.skill_id %>">
+                    <button>Recevoir</button>
+                </form>
+        </li>
+        <% }) %>
+</ul>
+
+<a href="/profile">Retour profil</a>

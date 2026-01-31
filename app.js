@@ -4,6 +4,8 @@ const path = require('path');
 const db = require('./db/database');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/auth');
+const userRoutes = require('./routes/users');
+const exchangeRoutes = require('./routes/exchanges');
 
 const app = express();
 
@@ -17,16 +19,34 @@ app.use(session({
     saveUninitialized: false
 }));
 
+// Templates EJS
+app.set('view engine', 'ejs');
+
 // Fichiers statiques (CSS / JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Templates EJS
-app.set('view engine', 'ejs');
+// Routes Auth
+app.use(authRoutes);
+
+// Routes Utilisateurs
+app.use(userRoutes);
+
+// Routes Échanges
+app.use(exchangeRoutes);
+
+// Lancement du serveur
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`Serveur lancé sur http://localhost:${PORT}`);
+});
+
+/* ========== TESTS TEMPORAIRES ==========
 
 // Route de test
 app.get('/', (req, res) => {
     res.send('Réussite de la connexion à la base de données SQLite !');
 });
+
 
 // Test de la BDD
 app.get('/test-db', (req, res) => {
@@ -38,16 +58,9 @@ app.get('/test-db', (req, res) => {
     });
 });
 
-// Routes Auth
-app.use(authRoutes);
 
+//Test route auth
 app.get('/profile', authMiddleware, (req, res) => {
     res.send(`Bienvenue sur votre profil, utilisateur #${req.session.userId}`);
 });
-
-
-// Lancement du serveur
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Serveur lancé sur http://localhost:${PORT}`);
-});
+*/
