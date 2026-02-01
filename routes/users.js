@@ -100,19 +100,6 @@ router.post('/add-skill', authMiddleware, (req, res) => {
 //Liste des autres utilisateurs
 router.get('/users', authMiddleware, (req, res) => {
     db.all(
-        'SELECT id, username FROM users WHERE id != ?',
-        [req.session.userId],
-        (err, users) => {
-            if (err) return res.send('Erreur récupération utilisateurs');
-            res.render('users', { users });
-        }
-    );
-});
-
-module.exports = router;
-
-router.get('/profile', authMiddleware, (req, res) => {
-    db.all(
         `
     SELECT
       users.id AS user_id,
@@ -127,9 +114,30 @@ router.get('/profile', authMiddleware, (req, res) => {
     `,
         [req.session.userId],
         (err, rows) => {
-            if (err) return res.send('Erreur chargement utilisateurs');
-            res.render('users', { rows });
+            if (err) {
+                console.log(err);
+                return res.send('Erreur chargement utilisateurs');
+            }
+            res.render('users', { rows: rows });
         }
     );
 });
+
+// Supprimer une compétence
+router.post('/remove-skill', authMiddleware, (req, res) => {
+    const { skillId } = req.body;
+    const userId = req.session.userId;
+
+    db.run(
+        'DELETE FROM user_skills WHERE user_id = ? AND skill_id = ?',
+        [userId, skillId],
+        (err) => {
+            if (err) return res.send('Erreur suppression compétence');
+            res.redirect('/profile');
+        }
+    );
+});
+
+module.exports = router;
+
 

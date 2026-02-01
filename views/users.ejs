@@ -1,14 +1,14 @@
 <h2>Autres utilisateurs</h2>
 <ul>
-    <% users.forEach(u=> { %>
+    <% rows.forEach(u=> { %>
         <li>
-            <%= u.username %>
+            <strong>
+                <%= u.username %>
+            </strong>
+            (Crédits : <%= u.credits %>)
         </li>
         <% }) %>
 </ul>
-
-<a href="/profile">Retour profil</a>
-
 
 <h2>Compétences proposées</h2>
 
