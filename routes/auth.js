@@ -27,14 +27,17 @@ router.post('/register', async (req, res) => {
                 return res.send('Utilisateur déjà existant');
             }
 
-            // Créer les crédits à 0
+            // Créer les crédits à 1 pour le nouvel utilisateur
             db.run(
-                `INSERT INTO credits (user_id, balance) VALUES (?, 0)`,
-                [this.lastID]
-            );
+                `INSERT INTO credits (user_id, balance) VALUES (?, ?)`,
+                [this.lastID, 1],
+                (err) => {
+                    if (err) return res.send('Erreur crédits');
 
-            req.session.userId = this.lastID;
-            res.redirect('/profile');
+                    req.session.userId = this.lastID;
+                    res.redirect('/profile');
+                }
+            );
         }
     );
 });
