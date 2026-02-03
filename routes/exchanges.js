@@ -18,7 +18,7 @@ router.post('/exchange', authMiddleware, (req, res) => {
         [receiverId],
         (err, credit) => {
             if (err || !credit || credit.balance < 1) {
-                return res.send('Erreur crédits reçeveur');
+                return res.send('Crédits insuffisants');
             }
 
             //Décrediter le reçeveur
