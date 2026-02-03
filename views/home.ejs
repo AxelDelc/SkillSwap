@@ -1,0 +1,12 @@
+<h1>SkillSwap</h1>
+
+<p>Échange des compétences contre des crédits</p>
+
+<% if (!userId) { %>
+    <a href="/login">Connexion</a> |
+    <a href="/register">Inscription</a>
+    <% } else { %>
+        <a href="/profile">Mon profil</a> |
+        <a href="/users">Voir les compétences</a> |
+        <a href="/logout">Déconnexion</a>
+        <% } %>

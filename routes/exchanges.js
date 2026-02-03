@@ -5,14 +5,14 @@ const authMiddleware = require('../middleware/auth');
 const router = express.Router();
 
 router.post('/exchange', authMiddleware, (req, res) => {
-    const giverId = req.session.userId;
-    const { receiverId, skillId } = req.body;
+    const receiverId = req.session.userId;
+    const { giverId, skillId } = req.body;
 
-    if (!receiverId || !skillId) {
+    if (!giverId || !skillId) {
         return res.send('Données manquantes');
     }
 
-    //Verifier credits du reçeveur
+    // Vérifier crédits du receveur (session)
     db.get(
         'SELECT balance FROM credits WHERE user_id = ?',
         [receiverId],
@@ -21,27 +21,28 @@ router.post('/exchange', authMiddleware, (req, res) => {
                 return res.send('Crédits insuffisants');
             }
 
-            //Décrediter le reçeveur
+            // -1 crédit receveur
             db.run(
                 'UPDATE credits SET balance = balance - 1 WHERE user_id = ?',
-                [receiverId],
+                [receiverId]
             );
 
-            //Créditer le donneur
+            // +1 crédit donneur
             db.run(
                 'UPDATE credits SET balance = balance + 1 WHERE user_id = ?',
-                [giverId],
+                [giverId]
             );
 
-            //Enregistrer l'échange
+            // Enregistrer l’échange
             db.run(
-                `INSERT INTO exchanges (giver_id, receiver_id, skill_id, date) VALUES (?, ?, ?, datetime('now'))`,
-                [giverId, receiverId, skillId],
+                `
+                INSERT INTO exchanges (giver_id, receiver_id, skill_id, credits)
+                VALUES (?, ?, ?, ?)
+                `,
+                [giverId, receiverId, skillId, 1],
                 (err) => {
-                    if (err) {
-                        return res.send('Erreur enregistrement échange');
-                    }
-                    res.send('Échange réussi !');
+                    if (err) return res.send('Erreur enregistrement échange');
+                    res.redirect('/profile');
                 }
             );
         }

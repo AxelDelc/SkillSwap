@@ -6,6 +6,7 @@ const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/auth');
 const userRoutes = require('./routes/users');
 const exchangeRoutes = require('./routes/exchanges');
+const homeRoutes = require('./routes/home');
 
 const app = express();
 
@@ -24,6 +25,9 @@ app.set('view engine', 'ejs');
 
 // Fichiers statiques (CSS / JS)
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Routes Accueil
+app.use('/', homeRoutes);
 
 // Routes Auth
 app.use(authRoutes);

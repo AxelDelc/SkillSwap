@@ -27,7 +27,7 @@ router.post('/register', async (req, res) => {
                 return res.send('Utilisateur déjà existant');
             }
 
-            // Créer les crédits à 1 pour le nouvel utilisateur
+            // Ajouter 1 crédit pour le nouvel utilisateur
             db.run(
                 `INSERT INTO credits (user_id, balance) VALUES (?, ?)`,
                 [this.lastID, 1],

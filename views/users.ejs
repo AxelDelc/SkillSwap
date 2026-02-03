@@ -21,10 +21,11 @@
             proposé par <%= r.username %>
 
                 <form method="POST" action="/exchange" style="display:inline">
-                    <input type="hidden" name="receiverId" value="<%= r.user_id %>">
+                    <input type="hidden" name="giverId" value="<%= r.user_id %>">
                     <input type="hidden" name="skillId" value="<%= r.skill_id %>">
                     <button>Recevoir</button>
                 </form>
+
         </li>
         <% }) %>
 </ul>
