@@ -65,7 +65,7 @@ router.post('/login', (req, res) => {
                 return res.send('Mot de passe incorrect');
             }
             req.session.userId = user.id;
-            res.redirect('/profile');
+            res.redirect('/');
         }
     );
 });

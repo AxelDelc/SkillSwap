@@ -1,37 +1,86 @@
-<h2>Profil de <%= user.username %>
-</h2>
-<p>Email : <%= user.email %>
-</p>
-<p>Crédits : <%= credit %>
-</p>
+<!DOCTYPE html>
+<html lang="fr">
 
-<h3>Compétences proposées</h3>
-<ul>
-    <% offers.forEach(o=> { %>
-        <li>
-            <%= o.name %>
-        </li>
-        <% }) %>
-</ul>
+<head>
+    <meta charset="UTF-8">
+    <title>Profil – SkillSwap</title>
+    <link rel="stylesheet" href="/css/profile.css">
+</head>
 
-<h3>Compétences recherchées</h3>
-<ul>
-    <% requests.forEach(r=> { %>
-        <li>
-            <%= r.name %>
-        </li>
-        <% }) %>
-</ul>
+<body>
 
-<h3>Ajouter une compétence</h3>
-<form method="POST" action="/add-skill">
-    <input name="skillName" placeholder="Nom compétence" required>
-    <select name="type">
-        <option value="offer">Proposée</option>
-        <option value="request">Recherchée</option>
-    </select>
-    <button>Ajouter</button>
-</form>
+    <main class="profile-container">
 
-<a href="/users">Voir autres utilisateurs</a>
-<a href="/logout">Déconnexion</a>
+        <header class="profile-header">
+            <h1>Profil de <%= user.username %>
+            </h1>
+            <p class="email">
+                <%= user.email %>
+            </p>
+        </header>
+
+        <section class="credits">
+            <p>Crédits disponibles</p>
+            <div class="credit-box">
+                <%= credit %>
+            </div>
+        </section>
+
+        <section class="skills">
+            <div class="skills-block">
+                <h3>Compétences proposées</h3>
+                <ul>
+                    <% if (offers.length===0) { %>
+                        <li class="empty">Aucune compétence proposée</li>
+                        <% } %>
+
+                            <% offers.forEach(o=> { %>
+                                <li>
+                                    <%= o.name %>
+                                </li>
+                                <% }) %>
+                </ul>
+            </div>
+
+            <div class="skills-block">
+                <h3>Compétences recherchées</h3>
+                <ul>
+                    <% if (requests.length===0) { %>
+                        <li class="empty">Aucune compétence recherchée</li>
+                        <% } %>
+
+                            <% requests.forEach(r=> { %>
+                                <li>
+                                    <%= r.name %>
+                                </li>
+                                <% }) %>
+                </ul>
+            </div>
+        </section>
+
+        <section class="add-skill">
+            <h3>Ajouter une compétence</h3>
+
+            <form method="POST" action="/add-skill">
+                <input name="skillName" placeholder="Nom compétence" required>
+
+                <select name="type" required>
+                    <option value="offer">Proposée</option>
+                    <option value="request">Recherchée</option>
+                </select>
+
+                <button>Ajouter</button>
+            </form>
+        </section>
+
+        <nav class="profile-nav">
+            <a href="/">Accueil</a>
+            <a href="/users">Autres utilisateurs</a>
+            <a href="/logout" class="danger">Déconnexion</a>
+        </nav>
+
+    </main>
+
+</body>
+
+</html>

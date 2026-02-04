@@ -1,8 +1,38 @@
-<h2>Inscription</h2>
-<form method="POST">
-    <input name="username" placeholder="Pseudo" required />
-    <input name="email" type="email" placeholder="Email" required />
-    <input name="password" type="password" placeholder="Mot de passe" required />
-    <button>S'inscrire</button>
-</form>
-<a href="/login">Connexion</a>
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Inscription – SkillSwap</title>
+    <link rel="stylesheet" href="/css/auth.css">
+</head>
+
+<body>
+
+    <main class="auth-container">
+
+        <header class="auth-header">
+            <h1>Inscription</h1>
+            <p>Créez votre compte SkillSwap</p>
+        </header>
+
+        <form method="POST" class="auth-form">
+            <input name="username" placeholder="Pseudo" required />
+
+            <input name="email" type="email" placeholder="Adresse email" required />
+
+            <input name="password" type="password" placeholder="Mot de passe" required />
+
+            <button>S'inscrire</button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Déjà un compte ?</p>
+            <a href="/login">Connexion</a>
+        </div>
+
+    </main>
+
+</body>
+
+</html>

@@ -1,33 +1,66 @@
-<h2>Autres utilisateurs</h2>
-<ul>
-    <% rows.forEach(u=> { %>
-        <li>
-            <strong>
-                <%= u.username %>
-            </strong>
-            (Crédits : <%= u.credits %>)
-        </li>
-        <% }) %>
-</ul>
+<!DOCTYPE html>
+<html lang="fr">
 
-<h2>Compétences proposées</h2>
+<head>
+    <meta charset="UTF-8">
+    <title>Utilisateurs – SkillSwap</title>
+    <link rel="stylesheet" href="/css/users.css">
+</head>
 
-<ul>
-    <% rows.forEach(r=> { %>
-        <li>
-            <strong>
-                <%= r.skill_name %>
-            </strong>
-            proposé par <%= r.username %>
+<body>
 
-                <form method="POST" action="/exchange" style="display:inline">
-                    <input type="hidden" name="giverId" value="<%= r.user_id %>">
-                    <input type="hidden" name="skillId" value="<%= r.skill_id %>">
-                    <button>Recevoir</button>
-                </form>
+    <main class="users-container">
 
-        </li>
-        <% }) %>
-</ul>
+        <header class="users-header">
+            <h1>Communauté SkillSwap</h1>
+            <p>Découvrez les compétences proposées par les autres utilisateurs</p>
+        </header>
 
-<a href="/profile">Retour profil</a>
+        <section class="users-list">
+            <h2>Autres utilisateurs</h2>
+            <ul>
+                <% rows.forEach(u=> { %>
+                    <li>
+                        <strong>
+                            <%= u.username %>
+                        </strong>
+                        <span class="credits">
+                            <%= u.credits %> crédits
+                        </span>
+                    </li>
+                    <% }) %>
+            </ul>
+        </section>
+
+        <section class="skills-list">
+            <h2>Compétences disponibles</h2>
+
+            <ul>
+                <% rows.forEach(r=> { %>
+                    <li class="skill-item">
+                        <div>
+                            <strong>
+                                <%= r.skill_name %>
+                            </strong>
+                            <span class="by">proposé par <%= r.username %></span>
+                        </div>
+
+                        <form method="POST" action="/exchange">
+                            <input type="hidden" name="giverId" value="<%= r.user_id %>">
+                            <input type="hidden" name="skillId" value="<%= r.skill_id %>">
+                            <button>Recevoir</button>
+                        </form>
+                    </li>
+                    <% }) %>
+            </ul>
+        </section>
+
+        <nav class="users-nav">
+            <a href="/profile">← Retour au profil</a>
+        </nav>
+
+    </main>
+
+</body>
+
+</html>
