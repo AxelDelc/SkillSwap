@@ -1,0 +1,105 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    margin: 0;
+    padding: 0;
+}
+
+.requests-container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #020617;
+    border-radius: 12px;
+}
+
+.requests-container h1 {
+    text-align: center;
+    margin-bottom: 40px;
+    color: #ffffff;
+}
+
+.request-card {
+    background-color: #435159;
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.request-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.request-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.request-info strong {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.request-info span {
+    color: #adadad;
+    font-size: 14px;
+}
+
+.request-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.request-actions form {
+    margin: 0;
+}
+
+.btn {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-accept {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-accept:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.btn-reject {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-reject:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+@media (max-width: 600px) {
+    .request-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .request-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
