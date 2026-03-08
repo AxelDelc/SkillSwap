@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #f8fafc;
+    margin: 0;
+    padding: 0;
+}
+
+/* container principal */
+
+.profile-container {
+    max-width: 700px;
+    margin: 50px auto;
+    background: #020617;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* titre */
+
+.profile-container h1 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* infos utilisateur */
+
+.profile-info {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    color: #020617;
+}
+
+.profile-info p {
+    margin: 6px 0;
+}
+
+/* sections compétences */
+
+.skills-section {
+    margin-bottom: 25px;
+}
+
+.skills-section h2 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* liste */
+
+.skills-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skills-section li {
+    background: #0f172a;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    color: #020617;
+}
+
+/* message vide */
+
+.empty {
+    color: #888;
+    font-style: italic;
+}
+
+/* bouton retour */
+
+.users-nav a {
+    display: flex;
+    justify-content: center;
+    color: #38bdf8;
+    text-decoration: none;
+    font-weight: bold;
+}

@@ -24,9 +24,11 @@
                         <strong>
                             <%= u.username %>
                         </strong>
-                        <span class="credits">
-                            <%= u.credits %> crédits
-                        </span>
+                        <button class="view-profile">
+                            <a href="/users/<%= u.user_id %>">
+                                Voir profil
+                            </a>
+                        </button>
                     </li>
                     <% }) %>
             </ul>

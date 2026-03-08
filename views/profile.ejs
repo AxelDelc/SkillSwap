@@ -19,7 +19,14 @@
             </p>
         </header>
 
-        <a href="/requests">notifications</a>
+        <a href="/requests" class="notifications-link">
+            Notifications
+            <% if (requestCount> 0) { %>
+                <span class="notification-badge">
+                    <%= requestCount %>
+                </span>
+                <% } %>
+        </a>
 
         <section class="credits">
             <p>Crédits disponibles</p>

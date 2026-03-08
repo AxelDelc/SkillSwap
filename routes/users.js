@@ -14,7 +14,7 @@ router.get('/profile', authMiddleware, (req, res) => {
         (err, user) => {
             if (err || !user) return res.send('Utilisateur introuvable');
 
-            // Récupérer les crédits
+            // Récupérer crédits
             db.get(
                 'SELECT balance FROM credits WHERE user_id = ?',
                 [userId],
@@ -23,28 +23,45 @@ router.get('/profile', authMiddleware, (req, res) => {
 
                     // Récupérer compétences offertes
                     db.all(
-                        `SELECT skills.name FROM user_skills
-             JOIN skills ON skills.id = user_skills.skill_id
-             WHERE user_skills.user_id = ? AND user_skills.type = 'offer'`,
+                        `SELECT skills.id, skills.name
+                         FROM user_skills
+                         JOIN skills ON skills.id = user_skills.skill_id
+                         WHERE user_skills.user_id = ?
+                         AND user_skills.type = 'offer'`,
                         [userId],
                         (err, offers) => {
                             if (err) return res.send('Erreur compétences offertes');
 
                             // Récupérer compétences recherchées
                             db.all(
-                                `SELECT skills.name FROM user_skills
-                 JOIN skills ON skills.id = user_skills.skill_id
-                 WHERE user_skills.user_id = ? AND user_skills.type = 'request'`,
+                                `SELECT skills.id, skills.name
+                                 FROM user_skills
+                                 JOIN skills ON skills.id = user_skills.skill_id
+                                 WHERE user_skills.user_id = ?
+                                 AND user_skills.type = 'request'`,
                                 [userId],
                                 (err, requests) => {
                                     if (err) return res.send('Erreur compétences recherchées');
 
-                                    res.render('profile', {
-                                        user,
-                                        credit: credit.balance,
-                                        offers,
-                                        requests
-                                    });
+                                    // Compter les demandes en attente
+                                    db.get(
+                                        `SELECT COUNT(*) AS requestCount
+                                         FROM exchanges
+                                         WHERE giver_id = ?
+                                         AND status = 'pending'`,
+                                        [userId],
+                                        (err, result) => {
+                                            if (err) return res.send('Erreur notifications');
+
+                                            res.render('profile', {
+                                                user,
+                                                credit: credit.balance,
+                                                offers,
+                                                requests,
+                                                requestCount: result.requestCount
+                                            });
+                                        }
+                                    );
                                 }
                             );
                         }
@@ -134,6 +151,37 @@ router.post('/remove-skill', authMiddleware, (req, res) => {
         (err) => {
             if (err) return res.send('Erreur suppression compétence');
             res.redirect('/profile');
+        }
+    );
+});
+
+//Voir le profile des autres utilisateurs
+router.get('/users/:userId', authMiddleware, (req, res) => {
+    const userId = req.params.userId;
+
+    db.get(
+        'SELECT * FROM users WHERE id = ?',
+        [userId],
+        (err, user) => {
+            if (err) return res.send('Erreur chargement utilisateur');
+
+            db.all(
+                'SELECT s.name FROM user_skills us JOIN skills s ON s.id = us.skill_id WHERE us.user_id = ? AND us.type = ?',
+                [userId, 'offer'],
+                (err, offers) => {
+                    if (err) return res.send('Erreur chargement compétences offertes');
+
+                    db.all(
+                        'SELECT s.name FROM user_skills us JOIN skills s ON s.id = us.skill_id WHERE us.user_id = ? AND us.type = ?',
+                        [userId, 'request'],
+                        (err, requests) => {
+                            if (err) return res.send('Erreur chargement compétences recherchées');
+
+                            res.render('user-profile', { user, offers, requests });
+                        }
+                    );
+                }
+            );
         }
     );
 });

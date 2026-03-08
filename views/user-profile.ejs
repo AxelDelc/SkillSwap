@@ -1,0 +1,49 @@
+<link rel="stylesheet" href="/css/user-profile.css">
+
+<div class="profile-container">
+
+    <h1>
+        <%= user.username %>
+    </h1>
+
+    <div class="profile-info">
+        <p><strong>Email :</strong>
+            <%= user.email %>
+        </p>
+    </div>
+
+    <div class="skills-section">
+        <h2>Compétences proposées</h2>
+
+        <% if (offers.length===0) { %>
+            <p class="empty">Aucune compétence proposée</p>
+            <% } %>
+
+                <ul>
+                    <% offers.forEach(o=> { %>
+                        <li>
+                            <%= o.name %>
+                        </li>
+                        <% }) %>
+                </ul>
+    </div>
+
+    <div class="skills-section">
+        <h2>Compétences recherchées</h2>
+
+        <% if (requests.length===0) { %>
+            <p class="empty">Aucune compétence recherchée</p>
+            <% } %>
+
+                <ul>
+                    <% requests.forEach(r=> { %>
+                        <li>
+                            <%= r.name %>
+                        </li>
+                        <% }) %>
+                </ul>
+    </div>
+    <nav class="users-nav">
+        <a href="/users">← Retour aux utilisateurs</a>
+    </nav>
+</div>
