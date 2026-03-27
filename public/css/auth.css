@@ -26,9 +26,10 @@ body {
 .auth-card {
     background: var(--surface);
     border: 1px solid var(--border);
+    border-top: 1px solid rgba(139,92,246,0.35);
     border-radius: var(--radius-lg);
     padding: 36px 32px;
-    box-shadow: var(--shadow);
+    box-shadow: var(--shadow), 0 -1px 0 rgba(139,92,246,0.15) inset;
 }
 
 .auth-card h1 {

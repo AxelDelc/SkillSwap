@@ -52,16 +52,30 @@
     border-radius: var(--radius);
     padding: 22px 16px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0.06;
+}
+
+.stat-card:nth-child(1)::before { background: linear-gradient(135deg, #fcd34d, #f59e0b); }
+.stat-card:nth-child(2)::before { background: linear-gradient(135deg, #6ee7b7, #10b981); }
+.stat-card:nth-child(3)::before { background: linear-gradient(135deg, #a5b4fc, #8b5cf6); }
+
+.stat-card:nth-child(1) .stat-value { background: linear-gradient(135deg, #fcd34d, #f59e0b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-card:nth-child(2) .stat-value { background: linear-gradient(135deg, #6ee7b7, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-card:nth-child(3) .stat-value { background: linear-gradient(135deg, #a5b4fc, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
 
 .stat-value {
     font-size: 2rem;
     font-weight: 800;
     letter-spacing: -1.5px;
-    background: var(--gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     line-height: 1;
 }
 
@@ -81,7 +95,9 @@
     border-radius: var(--radius);
     padding: 22px;
     margin-bottom: 14px;
+    transition: border-color 0.2s;
 }
+.section:hover { border-color: var(--border2); }
 
 .section-title {
     font-size: 0.78rem;
