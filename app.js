@@ -42,28 +42,3 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });
-
-/* ========== TESTS TEMPORAIRES ==========
-
-// Route de test
-app.get('/', (req, res) => {
-    res.send('Réussite de la connexion à la base de données SQLite !');
-});
-
-
-// Test de la BDD
-app.get('/test-db', (req, res) => {
-    db.get('SELECT COUNT(*) AS count FROM users', (err, row) => {
-        if (err) {
-            return res.send('Erreur DB');
-        }
-        res.send(`Nombre d'utilisateurs : ${row.count}`);
-    });
-});
-
-
-//Test route auth
-app.get('/profile', authMiddleware, (req, res) => {
-    res.send(`Bienvenue sur votre profil, utilisateur #${req.session.userId}`);
-});
-*/

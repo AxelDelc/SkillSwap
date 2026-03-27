@@ -1,0 +1,34 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - DATABASE_URL=file:./dev.db
+    volumes:
+      # Persiste la base de données SQLite entre les redémarrages
+      - ./dev.db:/app/dev.db
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./routes
+          target: /app/routes
+        - action: sync+restart
+          path: ./views
+          target: /app/views
+        - action: sync+restart
+          path: ./public
+          target: /app/public
+        - action: sync+restart
+          path: ./middleware
+          target: /app/middleware
+        - action: sync+restart
+          path: ./lib
+          target: /app/lib
+        - action: sync+restart
+          path: ./app.js
+          target: /app/app.js
+        - action: rebuild
+          path: ./package.json
