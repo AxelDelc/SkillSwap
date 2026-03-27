@@ -1,7 +1,6 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const db = require('./db/database');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/auth');
 const userRoutes = require('./routes/users');

@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           Int      @id @default(autoincrement())
+  username     String   @unique
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  credits           Credits?
+  userSkills        UserSkill[]
+  givenExchanges    Exchange[] @relation("Giver")
+  receivedExchanges Exchange[] @relation("Receiver")
+
+  @@map("users")
+}
+
+model Skill {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  userSkills UserSkill[]
+  exchanges  Exchange[]
+
+  @@map("skills")
+}
+
+model UserSkill {
+  id      Int    @id @default(autoincrement())
+  userId  Int
+  skillId Int
+  type    String // 'offer' | 'request'
+
+  user  User  @relation(fields: [userId], references: [id])
+  skill Skill @relation(fields: [skillId], references: [id])
+
+  @@map("user_skills")
+}
+
+model Credits {
+  userId  Int @id
+  balance Int @default(0)
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("credits")
+}
+
+model Exchange {
+  id         Int      @id @default(autoincrement())
+  giverId    Int
+  receiverId Int
+  skillId    Int
+  credits    Int
+  status     String   @default("pending") // 'pending' | 'accepted' | 'rejected'
+  createdAt  DateTime @default(now())
+
+  giver    User  @relation("Giver", fields: [giverId], references: [id])
+  receiver User  @relation("Receiver", fields: [receiverId], references: [id])
+  skill    Skill @relation(fields: [skillId], references: [id])
+
+  @@map("exchanges")
+}
