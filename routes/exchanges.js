@@ -34,7 +34,8 @@ router.post('/exchange', authMiddleware, async (req, res) => {
             }
         });
 
-        res.redirect('/profile');
+        req.session.flash = { type: 'success', message: 'Demande envoyée avec succès !' };
+        res.redirect('/users');
     } catch (err) {
         res.send('Erreur création demande');
     }

@@ -9,20 +9,7 @@
 </head>
 <body>
 
-    <nav class="navbar">
-        <span class="navbar-brand">SkillSwap</span>
-        <div class="navbar-links">
-            <a href="/">Accueil</a>
-            <a href="/users">Explorer</a>
-            <a href="/requests">
-                Demandes
-                <% if (requestCount > 0) { %>
-                    <span class="badge"><%= requestCount %></span>
-                <% } %>
-            </a>
-            <a href="/logout" class="danger">Déconnexion</a>
-        </div>
-    </nav>
+    <%- include('partials/navbar') %>
 
     <main class="page">
 

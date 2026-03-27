@@ -8,7 +8,8 @@
     "migrate": "prisma migrate dev",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,8 @@
     "express-session": "^1.19.0"
   },
   "devDependencies": {
-    "prisma": "^7.5.0"
+    "jest": "^30.3.0",
+    "prisma": "^7.5.0",
+    "supertest": "^7.2.2"
   }
 }

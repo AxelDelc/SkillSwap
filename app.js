@@ -22,6 +22,14 @@ app.use(session({
 // Templates EJS
 app.set('view engine', 'ejs');
 
+// Injecte currentUserId et le flash message dans toutes les vues
+app.use((req, res, next) => {
+    res.locals.currentUserId = req.session.userId || null;
+    res.locals.flash = req.session.flash || null;
+    delete req.session.flash;
+    next();
+});
+
 // Fichiers statiques (CSS / JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -37,8 +45,12 @@ app.use(userRoutes);
 // Routes Échanges
 app.use(exchangeRoutes);
 
-// Lancement du serveur
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Serveur lancé sur http://localhost:${PORT}`);
-});
+module.exports = app;
+
+// Lancement du serveur uniquement si exécuté directement
+if (require.main === module) {
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+        console.log(`Serveur lancé sur http://localhost:${PORT}`);
+    });
+}
