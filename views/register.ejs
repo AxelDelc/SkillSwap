@@ -1,38 +1,38 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscription – SkillSwap</title>
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/auth.css">
 </head>
-
 <body>
-
-    <main class="auth-container">
-
-        <header class="auth-header">
-            <h1>Inscription</h1>
-            <p>Créez votre compte SkillSwap</p>
-        </header>
-
-        <form method="POST" class="auth-form">
-            <input name="username" placeholder="Pseudo" required />
-
-            <input name="email" type="email" placeholder="Adresse email" required />
-
-            <input name="password" type="password" placeholder="Mot de passe" required />
-
-            <button>S'inscrire</button>
-        </form>
-
-        <div class="auth-footer">
-            <p>Déjà un compte ?</p>
-            <a href="/login">Connexion</a>
+    <div class="auth-wrapper">
+        <div class="auth-logo">SkillSwap</div>
+        <div class="auth-card">
+            <h1>Créer un compte</h1>
+            <p class="subtitle">Rejoignez la communauté SkillSwap</p>
+            <form method="POST" class="auth-form">
+                <div class="field-group">
+                    <label for="username">Pseudo</label>
+                    <input id="username" name="username" placeholder="votre_pseudo" required>
+                </div>
+                <div class="field-group">
+                    <label for="email">Adresse email</label>
+                    <input id="email" name="email" type="email" placeholder="vous@exemple.com" required>
+                </div>
+                <div class="field-group">
+                    <label for="password">Mot de passe</label>
+                    <input id="password" name="password" type="password" placeholder="••••••••" required>
+                </div>
+                <button class="btn btn-primary">S'inscrire</button>
+            </form>
         </div>
-
-    </main>
-
+        <div class="auth-footer">
+            <span>Déjà un compte ?</span>
+            <a href="/login">Se connecter</a>
+        </div>
+    </div>
 </body>
-
 </html>

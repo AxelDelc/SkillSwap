@@ -1,34 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Notifications – SkillSwap</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demandes – SkillSwap</title>
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/requests.css">
 </head>
+<body>
 
-<div class="requests-container">
-    <h1>Demandes reçues</h1>
-
-    <% rows.forEach(row=> { %>
-        <div class="request-card">
-            <div class="request-info">
-                <strong>
-                    <%= row.username %>
-                </strong>
-                <span>Compétence : <%= row.skill_name %></span>
-                <span>Crédits : <%= row.credits %></span>
-            </div>
-
-            <div class="request-actions">
-                <form method="POST" action="/exchange/accept">
-                    <input type="hidden" name="exchangeId" value="<%= row.id %>">
-                    <button class="btn btn-accept">Accepter</button>
-                </form>
-
-                <form method="POST" action="/exchange/reject">
-                    <input type="hidden" name="exchangeId" value="<%= row.id %>">
-                    <button class="btn btn-reject">Refuser</button>
-                </form>
-            </div>
+    <nav class="navbar">
+        <span class="navbar-brand">SkillSwap</span>
+        <div class="navbar-links">
+            <a href="/profile">← Mon profil</a>
         </div>
-        <% }) %>
-            <a href="/profile" class="btn primary">Mon profil</a>
-</div>
+    </nav>
+
+    <main class="page">
+
+        <div class="page-header">
+            <h1>Demandes reçues</h1>
+            <p><%= rows.length %> demande<%= rows.length !== 1 ? 's' : '' %> en attente</p>
+        </div>
+
+        <% if (rows.length === 0) { %>
+            <div class="empty-msg">Aucune demande en attente.</div>
+        <% } else { %>
+            <div class="request-list">
+                <% rows.forEach(row => { %>
+                    <div class="request-card">
+                        <div class="request-from">
+                            <div class="req-avatar"><%= row.username[0].toUpperCase() %></div>
+                            <div class="req-info">
+                                <strong><%= row.username %></strong>
+                                <span><%= row.skill_name %> · <%= row.credits %> crédit<%= row.credits > 1 ? 's' : '' %></span>
+                            </div>
+                        </div>
+                        <div class="req-actions">
+                            <form method="POST" action="/exchange/accept">
+                                <input type="hidden" name="exchangeId" value="<%= row.id %>">
+                                <button class="btn btn-success btn-sm">Accepter</button>
+                            </form>
+                            <form method="POST" action="/exchange/reject">
+                                <input type="hidden" name="exchangeId" value="<%= row.id %>">
+                                <button class="btn btn-danger btn-sm">Refuser</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } %>
+
+    </main>
+</body>
+</html>

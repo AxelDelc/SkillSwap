@@ -1,95 +1,102 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil – SkillSwap</title>
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/profile.css">
 </head>
-
 <body>
 
-    <main class="profile-container">
-
-        <header class="profile-header">
-            <h1>Profil de <%= user.username %>
-            </h1>
-            <p class="email">
-                <%= user.email %>
-            </p>
-        </header>
-
-        <a href="/requests" class="notifications-link">
-            Notifications
-            <% if (requestCount> 0) { %>
-                <span class="notification-badge">
-                    <%= requestCount %>
-                </span>
+    <nav class="navbar">
+        <span class="navbar-brand">SkillSwap</span>
+        <div class="navbar-links">
+            <a href="/">Accueil</a>
+            <a href="/users">Explorer</a>
+            <a href="/requests">
+                Demandes
+                <% if (requestCount > 0) { %>
+                    <span class="badge"><%= requestCount %></span>
                 <% } %>
-        </a>
+            </a>
+            <a href="/logout" class="danger">Déconnexion</a>
+        </div>
+    </nav>
 
-        <section class="credits">
-            <p>Crédits disponibles</p>
-            <div class="credit-box">
-                <%= credit %>
+    <main class="page">
+
+        <div class="profile-header">
+            <div class="avatar"><%= user.username[0].toUpperCase() %></div>
+            <div class="profile-info">
+                <h1><%= user.username %></h1>
+                <div class="email"><%= user.email %></div>
             </div>
-        </section>
+        </div>
 
-        <section class="skills">
-            <div class="skills-block">
-                <h3>Compétences proposées</h3>
-                <ul>
-                    <% if (offers.length===0) { %>
-                        <li class="empty">Aucune compétence proposée</li>
-                        <% } %>
-
-                            <% offers.forEach(o=> { %>
-                                <li>
-                                    <%= o.name %>
-                                </li>
-                                <% }) %>
-                </ul>
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-value"><%= credit %></div>
+                <div class="stat-label">Crédits</div>
             </div>
-
-            <div class="skills-block">
-                <h3>Compétences recherchées</h3>
-                <ul>
-                    <% if (requests.length===0) { %>
-                        <li class="empty">Aucune compétence recherchée</li>
-                        <% } %>
-
-                            <% requests.forEach(r=> { %>
-                                <li>
-                                    <%= r.name %>
-                                </li>
-                                <% }) %>
-                </ul>
+            <div class="stat-card">
+                <div class="stat-value"><%= offers.length %></div>
+                <div class="stat-label">Proposées</div>
             </div>
-        </section>
+            <div class="stat-card">
+                <div class="stat-value"><%= requests.length %></div>
+                <div class="stat-label">Recherchées</div>
+            </div>
+        </div>
 
-        <section class="add-skill">
-            <h3>Ajouter une compétence</h3>
+        <div class="section">
+            <div class="section-title">Compétences proposées</div>
+            <div class="tags-list">
+                <% if (offers.length === 0) { %>
+                    <span style="color:var(--text-muted);font-size:0.88rem;font-style:italic">Aucune compétence proposée</span>
+                <% } %>
+                <% offers.forEach(o => { %>
+                    <div class="tag tag-offer">
+                        <%= o.name %>
+                        <form method="POST" action="/remove-skill" style="margin:0;display:contents">
+                            <input type="hidden" name="skillId" value="<%= o.id %>">
+                            <button type="submit" class="tag-remove" title="Supprimer">×</button>
+                        </form>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
 
-            <form method="POST" action="/add-skill">
-                <input name="skillName" placeholder="Nom compétence" required>
+        <div class="section">
+            <div class="section-title">Compétences recherchées</div>
+            <div class="tags-list">
+                <% if (requests.length === 0) { %>
+                    <span style="color:var(--text-muted);font-size:0.88rem;font-style:italic">Aucune compétence recherchée</span>
+                <% } %>
+                <% requests.forEach(r => { %>
+                    <div class="tag tag-request">
+                        <%= r.name %>
+                        <form method="POST" action="/remove-skill" style="margin:0;display:contents">
+                            <input type="hidden" name="skillId" value="<%= r.id %>">
+                            <button type="submit" class="tag-remove" title="Supprimer">×</button>
+                        </form>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
 
+        <div class="section">
+            <div class="section-title">Ajouter une compétence</div>
+            <form method="POST" action="/add-skill" class="add-form">
+                <input name="skillName" placeholder="Nom de la compétence" required>
                 <select name="type" required>
                     <option value="offer">Proposée</option>
                     <option value="request">Recherchée</option>
                 </select>
-
-                <button>Ajouter</button>
+                <button class="btn btn-primary btn-sm">Ajouter</button>
             </form>
-        </section>
-
-        <nav class="profile-nav">
-            <a href="/">Accueil</a>
-            <a href="/users">Autres utilisateurs</a>
-            <a href="/logout" class="danger">Déconnexion</a>
-        </nav>
+        </div>
 
     </main>
-
 </body>
-
 </html>

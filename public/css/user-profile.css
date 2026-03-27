@@ -1,82 +1,61 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    color: #f8fafc;
-    margin: 0;
-    padding: 0;
+.page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 36px 24px;
 }
 
-/* container principal */
-
-.profile-container {
-    max-width: 700px;
-    margin: 50px auto;
-    background: #020617;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* titre */
-
-.profile-container h1 {
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-/* infos utilisateur */
-
-.profile-info {
-    background: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    color: #020617;
-}
-
-.profile-info p {
-    margin: 6px 0;
-}
-
-/* sections compétences */
-
-.skills-section {
-    margin-bottom: 25px;
-}
-
-.skills-section h2 {
-    margin-bottom: 10px;
-    font-size: 18px;
-}
-
-/* liste */
-
-.skills-section ul {
-    list-style: none;
-    padding: 0;
-}
-
-.skills-section li {
-    background: #0f172a;
-    padding: 10px;
-    border-radius: 6px;
-    margin-bottom: 8px;
-    color: #020617;
-}
-
-/* message vide */
-
-.empty {
-    color: #888;
-    font-style: italic;
-}
-
-/* bouton retour */
-
-.users-nav a {
+.up-header {
     display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 28px;
+}
+
+.up-avatar {
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    align-items: center;
     justify-content: center;
-    color: #38bdf8;
-    text-decoration: none;
-    font-weight: bold;
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.2);
+}
+
+.up-info h1 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.up-info .email {
+    color: var(--text-secondary);
+    font-size: 0.87rem;
+    margin-top: 2px;
+}
+
+.section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    margin-bottom: 14px;
+}
+
+.section-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+}
+
+.empty-msg {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-style: italic;
 }
