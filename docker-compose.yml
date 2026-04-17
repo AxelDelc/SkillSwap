@@ -1,4 +1,20 @@
 services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: skillswap
+      POSTGRES_PASSWORD: skillswap
+      POSTGRES_DB: skillswap
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U skillswap"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   app:
     build: .
     ports:
@@ -6,10 +22,11 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - DATABASE_URL=file:./dev.db
-    volumes:
-      # Persiste la base de données SQLite entre les redémarrages
-      - ./dev.db:/app/dev.db
+      - DATABASE_URL=postgresql://skillswap:skillswap@db:5432/skillswap
+      - SESSION_SECRET=changeme_in_production
+    depends_on:
+      db:
+        condition: service_healthy
     develop:
       watch:
         - action: sync+restart
@@ -32,3 +49,6 @@ services:
           target: /app/app.js
         - action: rebuild
           path: ./package.json
+
+volumes:
+  postgres_data:

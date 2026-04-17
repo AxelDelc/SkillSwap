@@ -1,8 +1,5 @@
 FROM node:20-alpine
 
-# Outils nécessaires pour compiler better-sqlite3 (module natif)
-RUN apk add --no-cache python3 make g++
-
 WORKDIR /app
 
 # Copie les fichiers de dépendances et le schéma Prisma en premier
@@ -18,4 +15,4 @@ COPY . .
 
 EXPOSE 3000
 
-CMD ["node", "app.js"]
+CMD ["sh", "-c", "npx prisma migrate deploy && node app.js"]
