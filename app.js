@@ -6,6 +6,7 @@ const authMiddleware = require('./middleware/auth');
 const userRoutes = require('./routes/users');
 const exchangeRoutes = require('./routes/exchanges');
 const homeRoutes = require('./routes/home');
+const messagesRoutes = require('./routes/messages');
 
 const app = express();
 
@@ -44,6 +45,9 @@ app.use(userRoutes);
 
 // Routes Échanges
 app.use(exchangeRoutes);
+
+// Routes Messages
+app.use(messagesRoutes);
 
 module.exports = app;
 

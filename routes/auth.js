@@ -8,6 +8,7 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
+// Créer un nouveau compte utilisateur
 router.post('/register', async (req, res) => {
     const { username, email, password } = req.body;
 
@@ -41,6 +42,7 @@ router.get('/login', (req, res) => {
     res.render('login');
 });
 
+// Connecter un utilisateur existant
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
@@ -67,6 +69,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// Déconnecter l'utilisateur et détruire la session
 router.get('/logout', (req, res) => {
     req.session.destroy(() => {
         res.redirect('/login');

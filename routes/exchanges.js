@@ -4,6 +4,7 @@ const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
+// Envoyer une demande d'échange à un autre utilisateur
 router.post('/exchange', authMiddleware, async (req, res) => {
     const receiverId = req.session.userId;
     const { giverId, skillId } = req.body;
@@ -41,6 +42,7 @@ router.post('/exchange', authMiddleware, async (req, res) => {
     }
 });
 
+// Liste des demandes d'échange reçues en attente
 router.get('/requests', authMiddleware, async (req, res) => {
     const userId = req.session.userId;
 
@@ -66,6 +68,7 @@ router.get('/requests', authMiddleware, async (req, res) => {
     }
 });
 
+// Accepter une demande d'échange — transfère les crédits via transaction
 router.post('/exchange/accept', authMiddleware, async (req, res) => {
     const { exchangeId } = req.body;
 
@@ -105,6 +108,7 @@ router.post('/exchange/accept', authMiddleware, async (req, res) => {
     }
 });
 
+// Refuser une demande d'échange
 router.post('/exchange/reject', authMiddleware, async (req, res) => {
     const { exchangeId } = req.body;
 

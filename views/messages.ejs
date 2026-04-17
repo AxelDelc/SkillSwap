@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation avec <%= otherUser.username %> – SkillSwap</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/messages.css">
+</head>
+<body>
+
+    <%- include('partials/navbar') %>
+
+    <main class="page">
+
+        <div class="chat-header">
+            <a href="javascript:history.back()" class="back-btn">←</a>
+            <div class="chat-avatar"><%= otherUser.username[0].toUpperCase() %></div>
+            <div class="chat-title"><%= otherUser.username %></div>
+        </div>
+
+        <div class="chat-messages" id="messages">
+            <% if (messages.length === 0) { %>
+                <div class="chat-empty">Aucun message pour l'instant. Dites bonjour !</div>
+            <% } else { %>
+                <% messages.forEach(m => { %>
+                    <% const isMine = m.senderId === currentUserId; %>
+                    <div class="message <%= isMine ? 'message-mine' : 'message-theirs' %>">
+                        <div class="message-bubble"><%= m.content %></div>
+                        <div class="message-time">
+                            <%= new Date(m.sendedAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }) %>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+
+        <form class="chat-form" action="/messages/<%= otherUser.id %>/send" method="POST">
+            <input type="hidden" name="receiverId" value="<%= otherUser.id %>">
+            <textarea
+                name="content"
+                class="chat-input"
+                placeholder="Votre message..."
+                rows="1"
+                required
+                onkeydown="if(event.key==='Enter' && !event.shiftKey){ event.preventDefault(); this.form.submit(); }"
+            ></textarea>
+            <button type="submit" class="btn btn-primary chat-send">Envoyer</button>
+        </form>
+
+    </main>
+
+    <script>
+        const msgs = document.getElementById('messages');
+        msgs.scrollTop = msgs.scrollHeight;
+    </script>
+
+</body>
+</html>

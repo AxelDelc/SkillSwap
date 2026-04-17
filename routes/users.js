@@ -4,6 +4,7 @@ const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
+// Page de profil de l'utilisateur connecté
 router.get('/profile', authMiddleware, async (req, res) => {
     const userId = req.session.userId;
 
@@ -31,6 +32,7 @@ router.get('/profile', authMiddleware, async (req, res) => {
             .filter(us => us.type === 'request')
             .map(us => us.skill);
 
+        // Nombre de demandes d'échange en attente
         const requestCount = await prisma.exchange.count({
             where: { giverId: userId, status: 'pending' }
         });
@@ -47,6 +49,7 @@ router.get('/profile', authMiddleware, async (req, res) => {
     }
 });
 
+// Ajouter une compétence (offre ou demande) au profil
 router.post('/add-skill', authMiddleware, async (req, res) => {
     const { skillName, type } = req.body;
     const userId = req.session.userId;
@@ -54,6 +57,7 @@ router.post('/add-skill', authMiddleware, async (req, res) => {
     if (!skillName || !type) return res.send('Champs manquants');
 
     try {
+        // Crée la compétence si elle n'existe pas encore
         const skill = await prisma.skill.upsert({
             where: { name: skillName },
             update: {},
@@ -70,6 +74,23 @@ router.post('/add-skill', authMiddleware, async (req, res) => {
     }
 });
 
+// Supprimer une compétence du profil
+router.post('/remove-skill', authMiddleware, async (req, res) => {
+    const { skillId } = req.body;
+    const userId = req.session.userId;
+
+    try {
+        await prisma.userSkill.deleteMany({
+            where: { userId, skillId: parseInt(skillId) }
+        });
+
+        res.redirect('/profile');
+    } catch (err) {
+        res.send('Erreur suppression compétence');
+    }
+});
+
+// Liste de toutes les compétences proposées par les autres utilisateurs
 router.get('/users', authMiddleware, async (req, res) => {
     try {
         const userSkills = await prisma.userSkill.findMany({
@@ -96,21 +117,7 @@ router.get('/users', authMiddleware, async (req, res) => {
     }
 });
 
-router.post('/remove-skill', authMiddleware, async (req, res) => {
-    const { skillId } = req.body;
-    const userId = req.session.userId;
-
-    try {
-        await prisma.userSkill.deleteMany({
-            where: { userId, skillId: parseInt(skillId) }
-        });
-
-        res.redirect('/profile');
-    } catch (err) {
-        res.send('Erreur suppression compétence');
-    }
-});
-
+// Page de profil public d'un autre utilisateur
 router.get('/users/:userId', authMiddleware, async (req, res) => {
     const userId = parseInt(req.params.userId);
 

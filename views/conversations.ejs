@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages – SkillSwap</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/conversations.css">
+</head>
+<body>
+
+    <%- include('partials/navbar') %>
+
+    <main class="page">
+
+        <h1 class="page-title">Messages</h1>
+
+        <% if (conversations.length === 0) { %>
+            <div class="empty-state">
+                <div class="empty-icon">✉</div>
+                <p>Aucune conversation pour l'instant.</p>
+                <a href="/users" class="btn btn-primary">Explorer les utilisateurs</a>
+            </div>
+        <% } else { %>
+            <div class="conv-list">
+                <% conversations.forEach(c => { %>
+                    <a href="/messages/<%= c.id %>" class="conv-item">
+                        <div class="conv-avatar"><%= c.username[0].toUpperCase() %></div>
+                        <div class="conv-name"><%= c.username %></div>
+                    </a>
+                <% }) %>
+            </div>
+        <% } %>
+
+    </main>
+
+</body>
+</html>

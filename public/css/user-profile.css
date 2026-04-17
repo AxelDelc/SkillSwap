@@ -37,6 +37,10 @@
     margin-top: 2px;
 }
 
+.up-actions {
+    margin-bottom: 20px;
+}
+
 .section {
     background: var(--surface);
     border: 1px solid var(--border);
