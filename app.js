@@ -23,11 +23,25 @@ app.use(session({
 // Templates EJS
 app.set('view engine', 'ejs');
 
-// Injecte currentUserId et le flash message dans toutes les vues
-app.use((req, res, next) => {
+// Injecte currentUserId, flash et le nombre de messages non lus dans toutes les vues
+app.use(async (req, res, next) => {
+    const prisma = require('./lib/prisma');
     res.locals.currentUserId = req.session.userId || null;
     res.locals.flash = req.session.flash || null;
     delete req.session.flash;
+
+    if (req.session.userId) {
+        try {
+            res.locals.messageCount = await prisma.message.count({
+                where: { receiverId: req.session.userId, read: false }
+            });
+        } catch {
+            res.locals.messageCount = 0;
+        }
+    } else {
+        res.locals.messageCount = 0;
+    }
+
     next();
 });
 

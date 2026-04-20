@@ -4,7 +4,10 @@
         <% if (currentUserId) { %>
             <a href="/profile">Mon profil</a>
             <a href="/users">Explorer</a>
-            <a href="/messages">Messages</a>
+            <a href="/messages">
+                Messages
+                <% if (messageCount > 0) { %><span class="badge"><%= messageCount %></span><% } %>
+            </a>
             <a href="/requests">
                 Demandes
                 <% if (typeof requestCount !== 'undefined' && requestCount > 0) { %>

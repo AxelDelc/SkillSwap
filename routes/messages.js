@@ -45,6 +45,12 @@ router.get('/messages/:userId', authMiddleware, async (req, res) => {
             select: { id: true, username: true }
         });
 
+        // Marque les messages reçus comme lus
+        await prisma.message.updateMany({
+            where: { senderId: parseInt(receiverId), receiverId: senderId, read: false },
+            data: { read: true }
+        });
+
         const messages = await prisma.message.findMany({
             where: {
                 OR: [
