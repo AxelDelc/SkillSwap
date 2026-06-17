@@ -13,23 +13,24 @@ body {
 
 .auth-logo {
     text-align: center;
-    font-size: 1.7rem;
-    font-weight: 800;
-    letter-spacing: -1px;
-    background: linear-gradient(135deg, #a78bfa, #60a5fa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
     margin-bottom: 28px;
+    display: flex;
+    justify-content: center;
+}
+
+.auth-logo-img {
+    height: 44px;
+    width: auto;
+    display: block;
 }
 
 .auth-card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-top: 1px solid rgba(139,92,246,0.35);
+    border-top: 1px solid rgba(255,255,255,0.15);
     border-radius: var(--radius-lg);
     padding: 36px 32px;
-    box-shadow: var(--shadow), 0 -1px 0 rgba(139,92,246,0.15) inset;
+    box-shadow: var(--shadow);
 }
 
 .auth-card h1 {

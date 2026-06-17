@@ -1,15 +1,17 @@
 <nav class="navbar">
-    <a href="/" class="navbar-brand">SkillSwap</a>
+    <a href="/" class="navbar-brand">
+        <img src="/images/BLANC-RVB%20Logo%20SkillSwap.png" alt="SkillSwap" class="navbar-logo">
+    </a>
     <div class="navbar-links">
         <% if (currentUserId) { %>
-            <a href="/profile">Mon profil</a>
+            <a href="/profile"><img src="/images/Profil%20Pictogrammes%20Skillswap.png" class="nav-icon" alt="">Mon profil</a>
             <a href="/users">Explorer</a>
             <a href="/messages">
-                Messages
+                <img src="/images/Notification%20Pictogrammes%20Skillswap.png" class="nav-icon" alt="">Messages
                 <% if (messageCount > 0) { %><span class="badge"><%= messageCount %></span><% } %>
             </a>
             <a href="/requests">
-                Demandes
+                <img src="/images/Token%20Pictogrammes%20Skillswap.png" class="nav-icon" alt="">Demandes
                 <% if (typeof requestCount !== 'undefined' && requestCount > 0) { %>
                     <span class="badge"><%= requestCount %></span>
                 <% } %>

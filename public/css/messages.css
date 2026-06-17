@@ -90,7 +90,8 @@
 
 .message-mine .message-bubble {
     background: var(--gradient);
-    color: #fff;
+    color: #061008;
+    font-weight: 500;
     border-bottom-right-radius: 4px;
 }
 

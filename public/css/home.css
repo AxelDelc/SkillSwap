@@ -6,6 +6,7 @@ body {
 
 
 
+
 .hero {
     position: relative;
     z-index: 1;
@@ -74,8 +75,8 @@ body {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #a78bfa;
-    box-shadow: 0 0 7px rgba(167, 139, 250, 0.9);
+    background: var(--primary);
+    box-shadow: 0 0 7px rgba(0, 232, 122, 0.9);
     flex-shrink: 0;
 }
 
@@ -160,7 +161,7 @@ body {
     transform: translateX(-50%);
     width: 75%;
     height: 240px;
-    background: radial-gradient(ellipse at center, rgba(139, 92, 246, 0.22) 0%, rgba(59, 130, 246, 0.1) 40%, transparent 70%);
+    background: radial-gradient(ellipse at center, rgba(0, 232, 122, 0.2) 0%, rgba(0, 255, 240, 0.08) 40%, transparent 70%);
     pointer-events: none;
 }
 
@@ -344,21 +345,21 @@ body {
 }
 
 .feature-icon-purple {
-    background: rgba(139, 92, 246, 0.15);
-    color: #a78bfa;
-    border: 1px solid rgba(139, 92, 246, 0.25);
+    background: rgba(0, 232, 122, 0.12);
+    color: var(--primary);
+    border: 1px solid rgba(0, 232, 122, 0.25);
 }
 
 .feature-icon-blue {
-    background: rgba(59, 130, 246, 0.15);
-    color: #93c5fd;
-    border: 1px solid rgba(59, 130, 246, 0.25);
+    background: rgba(0, 255, 240, 0.12);
+    color: var(--accent);
+    border: 1px solid rgba(0, 255, 240, 0.25);
 }
 
 .feature-icon-green {
-    background: rgba(52, 211, 153, 0.12);
-    color: var(--success);
-    border: 1px solid rgba(52, 211, 153, 0.22);
+    background: rgba(0, 232, 122, 0.15);
+    color: var(--primary);
+    border: 1px solid rgba(0, 232, 122, 0.28);
 }
 
 .feature-card h3 {
@@ -385,8 +386,8 @@ body {
 }
 
 .cta-card {
-    background: linear-gradient(135deg, rgba(139, 92, 246, 0.12), rgba(59, 130, 246, 0.08));
-    border: 1px solid rgba(139, 92, 246, 0.25);
+    background: linear-gradient(135deg, rgba(0, 232, 122, 0.1), rgba(0, 255, 240, 0.06));
+    border: 1px solid rgba(0, 232, 122, 0.22);
     border-radius: var(--radius-lg);
     padding: 52px 40px;
     text-align: center;

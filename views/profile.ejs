@@ -1,89 +1,110 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil – SkillSwap</title>
+    <link rel="icon" type="image/png" href="/images/Favicon SkillSwap.png">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/profile.css">
 </head>
+
 <body>
 
     <%- include('partials/navbar') %>
 
-    <main class="page">
+        <main class="page">
 
-        <div class="profile-header">
-            <div class="avatar"><%= user.username[0].toUpperCase() %></div>
-            <div class="profile-info">
-                <h1><%= user.username %></h1>
-                <div class="email"><%= user.email %></div>
-            </div>
-        </div>
-
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-value"><%= credit %></div>
-                <div class="stat-label">Crédits</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value"><%= offers.length %></div>
-                <div class="stat-label">Proposées</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value"><%= requests.length %></div>
-                <div class="stat-label">Recherchées</div>
-            </div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Compétences proposées</div>
-            <div class="tags-list">
-                <% if (offers.length === 0) { %>
-                    <span style="color:var(--text-muted);font-size:0.88rem;font-style:italic">Aucune compétence proposée</span>
-                <% } %>
-                <% offers.forEach(o => { %>
-                    <div class="tag tag-offer">
-                        <%= o.name %>
-                        <form method="POST" action="/remove-skill" style="margin:0;display:contents">
-                            <input type="hidden" name="skillId" value="<%= o.id %>">
-                            <button type="submit" class="tag-remove" title="Supprimer">×</button>
-                        </form>
+            <div class="profile-header">
+                <div class="avatar">
+                    <%= user.username[0].toUpperCase() %>
+                </div>
+                <div class="profile-info">
+                    <h1>
+                        <%= user.username %>
+                    </h1>
+                    <div class="email">
+                        <%= user.email %>
                     </div>
-                <% }) %>
+                </div>
             </div>
-        </div>
 
-        <div class="section">
-            <div class="section-title">Compétences recherchées</div>
-            <div class="tags-list">
-                <% if (requests.length === 0) { %>
-                    <span style="color:var(--text-muted);font-size:0.88rem;font-style:italic">Aucune compétence recherchée</span>
-                <% } %>
-                <% requests.forEach(r => { %>
-                    <div class="tag tag-request">
-                        <%= r.name %>
-                        <form method="POST" action="/remove-skill" style="margin:0;display:contents">
-                            <input type="hidden" name="skillId" value="<%= r.id %>">
-                            <button type="submit" class="tag-remove" title="Supprimer">×</button>
-                        </form>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-value">
+                        <%= credit %>
                     </div>
-                <% }) %>
+                    <div class="stat-label"><img src="/images/Token%20Pictogrammes%20Skillswap.png" class="stat-picto"
+                            alt="">Crédits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">
+                        <%= offers.length %>
+                    </div>
+                    <div class="stat-label">Proposées</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">
+                        <%= requests.length %>
+                    </div>
+                    <div class="stat-label">Recherchées</div>
+                </div>
             </div>
-        </div>
 
-        <div class="section">
-            <div class="section-title">Ajouter une compétence</div>
-            <form method="POST" action="/add-skill" class="add-form">
-                <input name="skillName" placeholder="Nom de la compétence" required>
-                <select name="type" required>
-                    <option value="offer">Proposée</option>
-                    <option value="request">Recherchée</option>
-                </select>
-                <button class="btn btn-primary btn-sm">Ajouter</button>
-            </form>
-        </div>
+            <div class="section">
+                <div class="section-title"><img src="/images/pictocompetence.png" class="section-picto"
+                        alt="">Compétences proposées</div>
+                <div class="tags-list">
+                    <% if (offers.length===0) { %>
+                        <span style="color:var(--text-muted);font-size:0.88rem;font-style:italic">Aucune compétence
+                            proposée</span>
+                        <% } %>
+                            <% offers.forEach(o=> { %>
+                                <div class="tag tag-offer">
+                                    <%= o.name %>
+                                        <form method="POST" action="/remove-skill" style="margin:0;display:contents">
+                                            <input type="hidden" name="skillId" value="<%= o.id %>">
+                                            <button type="submit" class="tag-remove" title="Supprimer">×</button>
+                                        </form>
+                                </div>
+                                <% }) %>
+                </div>
+            </div>
 
-    </main>
+            <div class="section">
+                <div class="section-title"><img src="/images/pictocompetence.png" class="section-picto"
+                        alt="">Compétences recherchées</div>
+                <div class="tags-list">
+                    <% if (requests.length===0) { %>
+                        <span style="color:var(--text-muted);font-size:0.88rem;font-style:italic">Aucune compétence
+                            recherchée</span>
+                        <% } %>
+                            <% requests.forEach(r=> { %>
+                                <div class="tag tag-request">
+                                    <%= r.name %>
+                                        <form method="POST" action="/remove-skill" style="margin:0;display:contents">
+                                            <input type="hidden" name="skillId" value="<%= r.id %>">
+                                            <button type="submit" class="tag-remove" title="Supprimer">×</button>
+                                        </form>
+                                </div>
+                                <% }) %>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">Ajouter une compétence</div>
+                <form method="POST" action="/add-skill" class="add-form">
+                    <input name="skillName" placeholder="Nom de la compétence" required>
+                    <select name="type" required>
+                        <option value="offer">Proposée</option>
+                        <option value="request">Recherchée</option>
+                    </select>
+                    <button class="btn btn-primary btn-sm">Ajouter</button>
+                </form>
+            </div>
+
+        </main>
 </body>
+
 </html>
