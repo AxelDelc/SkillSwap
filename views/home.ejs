@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,63 +8,86 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/home.css">
 </head>
+
 <body>
 
     <%- include('partials/navbar') %>
 
-    <!-- Hero -->
-    <section class="hero">
-        <div class="hero-badge">Plateforme d'échange de compétences</div>
-        <h1 class="hero-title">
-            Échange tes compétences,<br>
-            <span class="hero-title-accent">construis ton réseau.</span>
-        </h1>
-        <p class="hero-subtitle">
-            Propose ce que tu sais faire, découvre ce que les autres offrent,<br>
-            et échange avec des crédits en toute simplicité.
-        </p>
-        <div class="hero-actions">
-            <% if (!currentUserId) { %>
-                <a href="/register" class="btn btn-primary btn-lg">Commencer gratuitement</a>
-                <a href="/login"    class="btn btn-secondary btn-lg">Se connecter</a>
-            <% } else { %>
-                <a href="/users"   class="btn btn-primary btn-lg">Explorer les compétences</a>
-                <a href="/profile" class="btn btn-secondary btn-lg">Mon profil</a>
+        <!-- Hero -->
+        <section class="hero">
+            <h1 class="hero-title">
+                Échange tes compétences,<br>
+                <span class="hero-title-accent">construis ton réseau.</span>
+            </h1>
+            <p class="hero-subtitle">
+                Propose ce que tu sais faire, découvre ce que les autres offrent,
+                et échange avec des crédits en toute simplicité.
+            </p>
+            <div class="hero-actions">
+                <% if (!currentUserId) { %>
+                    <a href="/register" class="btn btn-primary btn-lg">Commencer gratuitement</a>
+                    <a href="/login" class="btn btn-secondary btn-lg">Se connecter</a>
+                    <% } else { %>
+                        <a href="/users" class="btn btn-primary btn-lg">Explorer les compétences</a>
+                        <a href="/profile" class="btn btn-secondary btn-lg">Mon profil</a>
+                        <% } %>
+            </div>
+        </section>
+
+        <!-- Product screenshot – Linear style -->
+        <section class="hero-visual">
+            <div class="preview-glow"></div>
+            <div class="preview-window">
+                <div class="preview-chrome">
+                    <div class="preview-dots">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <div class="preview-url-bar">skillswap.app</div>
+                    <div class="preview-chrome-spacer"></div>
+                </div>
+                <div class="preview-screen">
+                    <img src="/images/HomeCapture.png" alt="SkillSwap aperçu" class="preview-img"
+                        onerror="this.style.display='none'; document.getElementById('preview-placeholder').style.display='flex';">
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="features">
+            <div class="features-label">Pourquoi SkillSwap ?</div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-purple">✦</div>
+                    <h3>Proposez vos compétences</h3>
+                    <p>Partagez votre savoir-faire avec la communauté et rendez-vous visible auprès de ceux qui en ont
+                        besoin.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-blue">⇄</div>
+                    <h3>Échangez avec des crédits</h3>
+                    <p>Chaque échange accepté vous rapporte des crédits. Utilisez-les pour accéder aux compétences des
+                        autres.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon feature-icon-green">◈</div>
+                    <h3>Construisez votre réseau</h3>
+                    <p>Entrez en contact avec des profils variés et développez votre réseau professionnel au fil des
+                        échanges.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA bas de page -->
+        <% if (!currentUserId) { %>
+            <section class="cta">
+                <div class="cta-card">
+                    <h2>Prêt à commencer ?</h2>
+                    <p>Créez votre compte en quelques secondes et obtenez 1 crédit offert.</p>
+                    <a href="/register" class="btn btn-primary btn-lg">Créer un compte</a>
+                </div>
+            </section>
             <% } %>
-        </div>
-    </section>
-
-    <!-- Features -->
-    <section class="features">
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon feature-icon-purple">✦</div>
-                <h3>Proposez vos compétences</h3>
-                <p>Partagez votre savoir-faire avec la communauté et rendez-vous visible auprès de ceux qui en ont besoin.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon feature-icon-blue">⇄</div>
-                <h3>Échangez avec des crédits</h3>
-                <p>Chaque échange accepté vous rapporte des crédits. Utilisez-les pour accéder aux compétences des autres.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon feature-icon-green">◈</div>
-                <h3>Construisez votre réseau</h3>
-                <p>Entrez en contact avec des profils variés et développez votre réseau professionnel au fil des échanges.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA bas de page -->
-    <% if (!currentUserId) { %>
-    <section class="cta">
-        <div class="cta-card">
-            <h2>Prêt à commencer ?</h2>
-            <p>Créez votre compte en quelques secondes et obtenez 1 crédit offert.</p>
-            <a href="/register" class="btn btn-primary btn-lg">Créer un compte</a>
-        </div>
-    </section>
-    <% } %>
 
 </body>
+
 </html>
