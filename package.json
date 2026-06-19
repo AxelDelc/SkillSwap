@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "prisma generate",
     "dev": "node app.js",
     "migrate": "prisma migrate dev",
     "db:push": "prisma db push",
