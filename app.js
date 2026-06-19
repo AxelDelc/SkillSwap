@@ -1,5 +1,6 @@
 const express = require('express');
 const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
 const path = require('path');
 const authRoutes = require('./routes/auth');
 const authMiddleware = require('./middleware/auth');
@@ -15,9 +16,14 @@ app.use(express.urlencoded({ extended: true }));
 
 // Sessions
 app.use(session({
-    secret: 'skillswap_secret',
+    store: new pgSession({
+        conString: process.env.DATABASE_URL,
+        createTableIfMissing: true,
+    }),
+    secret: process.env.SESSION_SECRET || 'skillswap_secret',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
 }));
 
 // Templates EJS
