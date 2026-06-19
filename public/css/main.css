@@ -376,14 +376,14 @@ select option {
 
 /* ── Navbar logo & icons ── */
 .navbar-logo {
-    height: 30px;
+    height: 40px;
     width: auto;
     display: block;
 }
 
 .nav-icon {
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
     object-fit: contain;
     flex-shrink: 0;
 }
