@@ -34,7 +34,10 @@ router.post('/register', async (req, res) => {
         res.redirect('/profile');
     } catch (err) {
         console.error('Erreur register:', err);
-        res.send('Utilisateur déjà existant');
+        if (err.code === 'P2002') {
+            return res.send('Utilisateur déjà existant');
+        }
+        res.send('Erreur serveur : ' + err.message);
     }
 });
 
